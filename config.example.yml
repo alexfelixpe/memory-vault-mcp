@@ -1,0 +1,66 @@
+# config.example.yml — template for the memory system's local config.
+#
+# HOW TO USE THIS FILE
+#   Option A (recommended): run `memory init`. It writes a config for you and
+#   prints your MCP registration line.
+#   Option B (manual): copy this file to `config.local.yml` in this same folder,
+#   then edit the vault path below. `config.local.yml` is kept out of Git, so
+#   your real paths and keys are never committed.
+#
+# This file ships with placeholders only. It has no real path and no real key.
+
+# ---------------------------------------------------------------------------
+# vaults: the Markdown folders the daemon reads and writes.
+# Give each vault a short name and an absolute path. You need at least one.
+# On Windows, use forward slashes in the path.
+# ---------------------------------------------------------------------------
+vaults:
+  # Change this to your own vault folder.
+  global: C:/Users/you/memory-vault/vault
+
+# Which vault to use by default. Must be one of the names under `vaults:` above.
+# A folder with no `.memory.yml` uses this vault. A folder WITH a `.memory.yml`
+# uses the vault named there, and reads that vault only, unless the same file
+# also says `share_global: true`. See "Use more than one vault" in README.md.
+default_vault: global
+
+# ---------------------------------------------------------------------------
+# external_roots (OPTIONAL): read-only folders indexed into a vault's search.
+# For files another tool writes (a project status tracker, an export folder)
+# that you want searchable WITHOUT letting that tool write inside your vault.
+# The daemon only ever READS these folders. Their files are always treated as
+# third-party content: search returns them fenced as untrusted, and they can
+# never enter the curated layer, whatever their frontmatter claims.
+# `vault:` names who may see them: whoever can read that vault in a search
+# also sees this folder. Must be one of the names under `vaults:` above.
+# Like a new vault, a new entry is picked up when the daemon restarts.
+# ---------------------------------------------------------------------------
+# external_roots:
+#   foreigntool:
+#     path: C:/Users/you/foreigntool-data
+#     vault: global
+
+# ---------------------------------------------------------------------------
+# embeddings: the local model that powers the "meaning" half of hybrid search.
+# It runs on your machine. There is no network call. Leave it enabled unless
+# you want keyword-only search.
+# ---------------------------------------------------------------------------
+embeddings:
+  enabled: true
+  model: multilingual-e5-small
+
+# ---------------------------------------------------------------------------
+# openrouter (OPTIONAL): turns on background capture.
+# Capture is OFF by default, and it stays off while this block is commented out.
+# When on, capture sends parts of your chat transcripts to OpenRouter (an
+# outside service) so a cheap model can pull out candidate memories. Turn it on
+# only if you accept that data leaving your machine.
+# To turn it on: uncomment the two lines below and paste your real key.
+# The placeholder text below is safe: the daemon treats it as "no key", so
+# capture stays off until you replace it with a real key.
+# You can also keep the key out of this file: set the OPENROUTER_API_KEY
+# environment variable instead. The environment variable wins over any file.
+# ---------------------------------------------------------------------------
+# openrouter:
+#   api_key: REPLACE_WITH_YOUR_OPENROUTER_KEY
+#   model: openai/gpt-oss-120b

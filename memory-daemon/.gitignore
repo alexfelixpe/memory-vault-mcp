@@ -1,0 +1,10 @@
+# Build e dependencias (reconstruiveis)
+dist/
+node_modules/
+*.tsbuildinfo
+
+# Modelos de embedding baixados (fetch-model.ts recria)
+.models/
+
+# Denylist de clientes: carregada em runtime, nunca versionada
+config/denylist-terms.txt

@@ -1,0 +1,27 @@
+# Secrets: the OpenRouter key and any local-only config must never be tracked.
+# The daemon reads config.local.yml at the repo root (a legacy location, kept as
+# a fallback). Before, only .git/info/exclude guarded it, and that file is local
+# to one clone and never travels. This committed rule makes the protection
+# travel with the repo (security finding #5).
+config.local.yml
+*.local.yml
+
+# Dependencies and build output (reconstructible).
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Downloaded embedding models and local caches (recreated on demand).
+.models/
+.cache/
+
+# Local tooling config (machine-specific, not versioned).
+.claude/
+
+# OS and editor cruft.
+.DS_Store
+Thumbs.db
+
+# The vault is personal memory: it lives here but is NEVER part of this
+# repository or its remote. It has its own local-only git history.
+vault/

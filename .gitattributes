@@ -1,0 +1,3 @@
+# Hash stability across machines depends on LF being forced for Markdown
+# (the write daemon canonicalizes CRLF to LF before hashing).
+*.md text eol=lf

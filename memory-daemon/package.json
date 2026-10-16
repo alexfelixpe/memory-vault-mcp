@@ -1,0 +1,46 @@
+{
+  "name": "memory-daemon",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Portable personal memory: a single write daemon, an MCP proxy, and local hybrid search over Obsidian vaults.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "memoryd": "dist/daemon/main.js",
+    "memory-mcp": "dist/mcp/index.js",
+    "memory": "dist/cli/memory.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "prepare": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "fetch-model": "node scripts/fetch-model.mjs",
+    "bootstrap": "node bootstrap.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "better-sqlite3": "13.0.1",
+    "chokidar": "5.0.0",
+    "gray-matter": "4.0.3",
+    "js-yaml": "4.1.0",
+    "pino": "10.3.1",
+    "zod": "4.4.3"
+  },
+  "optionalDependencies": {
+    "@huggingface/transformers": "4.2.0",
+    "onnxruntime-node": "1.27.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "7.6.13",
+    "@types/js-yaml": "4.0.9",
+    "@types/node": "26.1.1",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  }
+}
